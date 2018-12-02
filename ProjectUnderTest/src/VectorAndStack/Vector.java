@@ -1,9 +1,12 @@
+package VectorAndStack;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Vector 
 {
-	MyStack vector = new MyStack(0);
+	public List<Integer> vector;
 	
 	public Vector()
 	{
@@ -16,7 +19,7 @@ public class Vector
 	private String[] operationsRegex = 
 		{
 			arrayRegex + arrayRegex.replace("^", "") + "[+]$",	//Объединение векторов
-			arrayRegex + "[-]?\\d+\\s*[?]$", 		//Вхождение числа в вектор
+			arrayRegex + "[-]?\\d+\\s*[?]$", 					//Вхождение числа в вектор
 			arrayRegex + arrayRegex.replace("^", "") + "[*]$",	//Пересечение векторов
 		};
 	
@@ -60,10 +63,10 @@ public class Vector
 		Pattern pattern = Pattern.compile(arrayRegex);
 		Matcher matcher = pattern.matcher(inputString);
 		matcher.find();
-		MyStack vectorLeft = parseStringToMyStack(matcher.group(0));
+		List<Integer> vectorLeft = parseStringToMyStack(matcher.group(0));
 		Integer number = Integer
 				.parseInt(inputString.replaceAll(arrayRegex, "").replaceAll("\\s*[?]", ""));
-		return vectorLeft.findValue(number);
+		return vectorLeft.contains(number);
 	}
 
 	private boolean joinVectors(String inputString)
@@ -72,20 +75,17 @@ public class Vector
 		Matcher matcher = pattern.matcher(inputString);
 		matcher.find();
 		int endOfFirst = matcher.end();
-		MyStack vectorLeft = parseStringToMyStack(matcher.group(0));
+		List<Integer> vectorLeft = parseStringToMyStack(matcher.group(0));
 		matcher.find(endOfFirst);
-		MyStack vectorRight = parseStringToMyStack(matcher.group(0));
-		MyStack newVector = vectorLeft;
-		for (int i = 0; i < vectorRight.getSize(); i++)
+		List<Integer> vectorRight = parseStringToMyStack(matcher.group(0));
+		for (Integer number : vectorRight)
 		{
-			int pulledValue = vectorRight.pullFromStack();
-			if (!newVector.findValue(pulledValue))
+			if (!vectorLeft.contains(number))
 			{
-				newVector.setSize(newVector.getSize() + 1);
-				newVector.pushToStack(pulledValue);
+				vectorLeft.add(number);
 			}
 		}
-		vector = newVector;
+		vector = vectorLeft;
 		return false;
 	}
 	
@@ -95,36 +95,30 @@ public class Vector
 		Matcher matcher = pattern.matcher(inputString);
 		matcher.find();
 		int endOfFirst = matcher.end();
-		MyStack vectorLeft = parseStringToMyStack(matcher.group(0));
+		List<Integer> vectorLeft = parseStringToMyStack(matcher.group(0));
 		matcher.find(endOfFirst);
-		int minSize = vectorLeft.getSize();
-		MyStack vectorRight = parseStringToMyStack(matcher.group(0));
-		if (minSize > vectorRight.getSize())
+		List<Integer> vectorRight = parseStringToMyStack(matcher.group(0));
+		ArrayList<Integer> newVector = new ArrayList<Integer>();
+		for (Integer number : vectorRight)
 		{
-			minSize = vectorRight.getSize();
-		}
-		MyStack newVector = new MyStack(minSize);
-		for (int i = 0; i < vectorRight.getSize(); i++)
-		{
-			int pulledValue = vectorRight.pullFromStack();
-			if (vectorLeft.findValue(pulledValue))
+			if (vectorLeft.contains(number))
 			{
-				newVector.pushToStack(pulledValue);
+				newVector.add(number);
 			}
 		}
 		vector = newVector;
 		return false;
 	}
 	
-	private MyStack parseStringToMyStack(String stringToParse)
+	private List<Integer> parseStringToMyStack(String stringToParse)
 	{
 		String[] items = stringToParse.replaceAll("\\[", "").replaceAll("\\]", "")
 				.replaceAll("\\s", "").split(",");
-		MyStack stack = new MyStack(items.length);
+		List<Integer> numbers = new ArrayList<Integer>();
 		for (int i = 0; i < items.length; i++) {
-		    stack.pushToStack(Integer.parseInt(items[i]));
+		    numbers.add(Integer.parseInt(items[i]));
 		}
-		return stack;
+		return numbers;
 	}
 
 }

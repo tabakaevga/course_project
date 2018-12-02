@@ -1,22 +1,23 @@
+package VectorAndStack;
 import java.util.Stack;
 
 //Класс стека
 public class MyStack {
 	
-	private Stack<Integer> elements = new Stack<Integer>();
+	private Stack<Vector> elements = new Stack<Vector>();
 	
 	private int sizeOfStack;
 	
-	public void pushToStack(Integer number)
+	public void pushToStack(Vector vector)
 	{
 		if (elements.size() >= sizeOfStack) 
 		{
 			throw new IllegalArgumentException("Size of stack is exceeded");
 		}
-		elements.push(number);
+		elements.push(vector);
 	}
 	
-	public Integer pullFromStack()
+	public Vector pullFromStack()
 	{
 		if (elements.isEmpty())
 		{
@@ -25,7 +26,7 @@ public class MyStack {
 		return elements.pop();
 	}
 	
-	public boolean findValue(Integer value)
+	public boolean findValue(Vector value)
 	{
 		return elements.contains(value);
 	}
@@ -43,7 +44,7 @@ public class MyStack {
 	
 	public MyStack(int size)
 	{
-		sizeOfStack = size;
+		setSize(size);
 	}
 
 }
