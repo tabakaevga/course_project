@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class Vector 
 {
-	public List<Integer> vector;
+	public ArrayList<Integer> vector;
 	
 	public Vector()
 	{
@@ -75,7 +75,7 @@ public class Vector
 		Matcher matcher = pattern.matcher(inputString);
 		matcher.find();
 		int endOfFirst = matcher.end();
-		List<Integer> vectorLeft = parseStringToMyStack(matcher.group(0));
+		ArrayList<Integer> vectorLeft = parseStringToMyStack(matcher.group(0));
 		matcher.find(endOfFirst);
 		List<Integer> vectorRight = parseStringToMyStack(matcher.group(0));
 		for (Integer number : vectorRight)
@@ -110,11 +110,11 @@ public class Vector
 		return false;
 	}
 	
-	private List<Integer> parseStringToMyStack(String stringToParse)
+	private ArrayList<Integer> parseStringToMyStack(String stringToParse)
 	{
 		String[] items = stringToParse.replaceAll("\\[", "").replaceAll("\\]", "")
 				.replaceAll("\\s", "").split(",");
-		List<Integer> numbers = new ArrayList<Integer>();
+		ArrayList<Integer> numbers = new ArrayList<Integer>();
 		for (int i = 0; i < items.length; i++) {
 		    numbers.add(Integer.parseInt(items[i]));
 		}
