@@ -63,7 +63,7 @@ public class Vector
 		Pattern pattern = Pattern.compile(arrayRegex);
 		Matcher matcher = pattern.matcher(inputString);
 		matcher.find();
-		List<Integer> vectorLeft = parseStringToMyStack(matcher.group(0));
+		List<Integer> vectorLeft = parseStringToArryInt(matcher.group(0));
 		Integer number = Integer
 				.parseInt(inputString.replaceAll(arrayRegex, "").replaceAll("\\s*[?]", ""));
 		return vectorLeft.contains(number);
@@ -75,9 +75,9 @@ public class Vector
 		Matcher matcher = pattern.matcher(inputString);
 		matcher.find();
 		int endOfFirst = matcher.end();
-		ArrayList<Integer> vectorLeft = parseStringToMyStack(matcher.group(0));
+		ArrayList<Integer> vectorLeft = parseStringToArryInt(matcher.group(0));
 		matcher.find(endOfFirst);
-		List<Integer> vectorRight = parseStringToMyStack(matcher.group(0));
+		List<Integer> vectorRight = parseStringToArryInt(matcher.group(0));
 		for (Integer number : vectorRight)
 		{
 			if (!vectorLeft.contains(number))
@@ -86,7 +86,7 @@ public class Vector
 			}
 		}
 		vector = vectorLeft;
-		return false;
+		return true;
 	}
 	
 	private boolean crossVectors(String inputString)
@@ -95,9 +95,9 @@ public class Vector
 		Matcher matcher = pattern.matcher(inputString);
 		matcher.find();
 		int endOfFirst = matcher.end();
-		List<Integer> vectorLeft = parseStringToMyStack(matcher.group(0));
+		List<Integer> vectorLeft = parseStringToArryInt(matcher.group(0));
 		matcher.find(endOfFirst);
-		List<Integer> vectorRight = parseStringToMyStack(matcher.group(0));
+		List<Integer> vectorRight = parseStringToArryInt(matcher.group(0));
 		ArrayList<Integer> newVector = new ArrayList<Integer>();
 		for (Integer number : vectorRight)
 		{
@@ -107,10 +107,10 @@ public class Vector
 			}
 		}
 		vector = newVector;
-		return false;
+		return true;
 	}
 	
-	private ArrayList<Integer> parseStringToMyStack(String stringToParse)
+	private ArrayList<Integer> parseStringToArryInt(String stringToParse)
 	{
 		String[] items = stringToParse.replaceAll("\\[", "").replaceAll("\\]", "")
 				.replaceAll("\\s", "").split(",");

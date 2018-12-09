@@ -23,7 +23,7 @@ class VectorTests {
 	@Test
 	void correctVectorJoinOperations() {
 		Vector vector = new Vector();
-		vector.operation("[2,-5] [-5,72] +");
+		vector.operation("[2, -5] [-5, 72] +");
 		assertArrayEquals(joinExpected.toArray(), vector.vector.toArray());
 
 	}
@@ -31,14 +31,14 @@ class VectorTests {
 	@Test
 	void correctVectorCrossOperations() {
 		Vector vector = new Vector();
-		vector.operation("[2,-5,72] [-5] *");	
+		vector.operation("[2, -5, 72] [-5] *");	
 		assertArrayEquals(crossExpected.toArray(), vector.vector.toArray());
 	}
 	
 	@Test
 	void correctVectorIsInOperations() {
 		Vector vector = new Vector();
-		assertTrue(vector.operation("[2,-5,72] 72 ?"));		
+		assertTrue(vector.operation("[2, -5, 72] 72 ?"));		
 	}
 
 }
