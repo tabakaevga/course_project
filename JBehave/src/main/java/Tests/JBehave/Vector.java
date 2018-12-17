@@ -1,4 +1,5 @@
-package VectorAndStack;
+package Tests.JBehave;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -15,12 +16,12 @@ public class Vector
 	private String arrayRegex = "^\\[([-]?\\d+(,\\s*[-]?\\d+)*)?\\]\\s*";
 	
 	
-	//Регулярные выражения для операций над вектором
+	//Р РµРіСѓР»СЏСЂРЅС‹Рµ РІС‹СЂР°Р¶РµРЅРёСЏ РґР»СЏ РѕРїРµСЂР°С†РёР№ РЅР°Рґ РІРµРєС‚РѕСЂРѕРј
 	private String[] operationsRegex = 
 		{
-			arrayRegex + arrayRegex.replace("^", "") + "[+]$",	//Объединение векторов
-			arrayRegex + "[-]?\\d+\\s*[?]$", 					//Вхождение числа в вектор
-			arrayRegex + arrayRegex.replace("^", "") + "[*]$",	//Пересечение векторов
+			arrayRegex + arrayRegex.replace("^", "") + "[+]$",	//РћР±СЉРµРґРёРЅРµРЅРёРµ РІРµРєС‚РѕСЂРѕРІ
+			arrayRegex + "[-]?\\d+\\s*[?]$", 					//Р’С…РѕР¶РґРµРЅРёРµ С‡РёСЃР»Р° РІ РІРµРєС‚РѕСЂ
+			arrayRegex + arrayRegex.replace("^", "") + "[*]$",	//РџРµСЂРµСЃРµС‡РµРЅРёРµ РІРµРєС‚РѕСЂРѕРІ
 		};
 	
 	public boolean operation(String inputString) 
@@ -35,10 +36,6 @@ public class Vector
 				handleOption = i;
 				break;
 			}
-		}
-		if (handleOption == -1)
-		{
-			throw new IllegalArgumentException("Something is wrong with operations method");
 		}
 		return operationsHandler(handleOption, inputString);
 	}
@@ -63,9 +60,10 @@ public class Vector
 		Pattern pattern = Pattern.compile(arrayRegex);
 		Matcher matcher = pattern.matcher(inputString);
 		matcher.find();
-		List<Integer> vectorLeft = parseStringToArrayInt(matcher.group(0));
+		ArrayList<Integer> vectorLeft = parseStringToArrayInt(matcher.group(0));
 		Integer number = Integer
 				.parseInt(inputString.replaceAll(arrayRegex, "").replaceAll("\\s*[?]", ""));
+		vector = vectorLeft;
 		return vectorLeft.contains(number);
 	}
 

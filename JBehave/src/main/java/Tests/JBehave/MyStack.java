@@ -1,7 +1,7 @@
-package VectorAndStack;
+package Tests.JBehave;
 import java.util.Stack;
 
-//Класс стека
+//РљР»Р°СЃСЃ СЃС‚РµРєР°
 public class MyStack {
 	
 	private Stack<Vector> elements = new Stack<Vector>();
